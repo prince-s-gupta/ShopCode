@@ -1,10 +1,134 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import { Navigation, Pagination } from 'swiper/modules';
 import MainLayout from './MainLayout'
 
 const Home = () => {
+    const [products, setProducts] = useState([
+        {
+            title: 'Cotton Plaid Shirt',
+            price: 1500,
+            discount: 10,
+            thumbnail: "/product/a (1).jpg"
+        },
+        {
+            title: 'Linen Button-Up Shirt',
+            price: 1800,
+            discount: 15,
+            thumbnail: "/product/a (2).jpg"
+        },
+        {
+            title: 'Striped Oxford Shirt',
+            price: 2000,
+            discount: 5,
+            thumbnail: "/product/a (3).jpg"
+
+        },
+        {
+            title: 'Denim Shirt',
+            price: 2200,
+            discount: 2,
+            thumbnail: "/product/a (4).jpg"
+        },
+        {
+            title: 'Flannel Checkered Shirt',
+            price: 1700,
+            discount: 20,
+            thumbnail: "/product/a (5).jpg"
+        },
+        {
+            title: 'Printed Hawaiian Shirt',
+            price: 1900,
+            discount: 10,
+            thumbnail: "/product/a (6).jpg"
+        },
+        {
+            title: 'Silk Blend Dress Shirt',
+            price: 2500,
+            discount: 8,
+            thumbnail: "/product/a (7).jpg"
+        },
+        {
+            title: 'Casual Chambray Shirt',
+            price: 1600,
+            discount: 12,
+            thumbnail: "/product/a (8).jpg"
+        },
+        {
+            title: 'Polo T-Shirt',
+            price: 1200,
+            discount: 15,
+            thumbnail: "/product/a (9).jpg"
+        },
+        {
+            title: 'Slim Fit Check Shirt',
+            price: 2100,
+            discount: 10,
+            thumbnail: "/product/a (10).jpg"
+        },
+        {
+            title: 'Button-Down Oxford Shirt',
+            price: 2300,
+            discount: 5,
+            thumbnail: "/product/a (11).jpg"
+        }
+    ]);
+
     return (
         <MainLayout>
-            <div>Home</div>
+            <div>
+                <header>
+                    <Swiper
+                        slidesPerView={1}
+                        navigation={true}
+                        pagination={true}
+                        modules={[Navigation, Pagination]}
+                        className='mySwiper'
+                    >
+                        <SwiperSlide>
+                            <img src="/images/p1.jpg" alt="" />
+                        </SwiperSlide>
+                        <SwiperSlide>
+                            <img src="/images/p2.jpg" alt="" />
+                        </SwiperSlide>
+                        <SwiperSlide>
+                            <img src="/images/p3.jpg" alt="" />
+                        </SwiperSlide>
+                        <SwiperSlide>
+                            <img src="/images/p4.jpg" alt="" />
+                        </SwiperSlide>
+                        <SwiperSlide>
+                            <img src="/images/p5.jpg" alt="" />
+                        </SwiperSlide>
+                    </Swiper>
+                </header>
+                <div className='p-16'>
+                    <h1 className='text-3xl font-bold text-center mb-2'>Latest Products</h1>
+                    <p className='text-center text-gray-600 mb-10'>Explore our freshest arrivals – discover what's new today!</p>
+                    <div className='w-10/12 mx-auto grid grid-cols-4 gap-8'>
+                        {
+                            products.map((item, index) => (
+                                <div key={index} className='shadow-lg'>
+                                    <img src={item.thumbnail} alt={item.title} />
+                                    <div className='p-4 bg-white rounded'>
+                                        <h1 className='text-lg font-semibold'>{item.title}</h1>
+                                        <div className='space-x-2'>
+                                            <label className='font-semibold text-lg'>₹{item.price - (item.price * item.discount) / 100}</label>
+                                            <del>₹{item.price}</del>
+                                            <label className='text-gray-600'>({item.discount}%)</label>
+                                        </div>
+                                        <button className='bg-green-500 py-2 w-full rounded text-white font-semibold mt-2'>Buy Now</button>
+                                    </div>
+                                </div>
+                            ))
+                        }
+                    </div>
+                </div>
+            </div>
+
         </MainLayout>
     )
 }

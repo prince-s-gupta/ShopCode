@@ -1,7 +1,9 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 
 const MainLayout = ({ children }) => {
+    const [open, setOpen] = useState(false)
+    const navigate = useNavigate()
     const menus = [
         {
             label: "Home",
@@ -20,12 +22,20 @@ const MainLayout = ({ children }) => {
             href: "/contact-us"
         },
     ]
+
+    const mobileLink = (href) => {
+        navigate(href)
+        setOpen(false)
+    }
     return (
         <div>
-            <nav className='shadow-lg bg-white sticky top-0 left-0'>
+            <nav className='shadow-lg bg-white sticky top-0 left-0 p-4 md:p-0'>
                 <div className='w-10/12 mx-auto flex items-center justify-between'>
                     <img src="/images/shopCode.png" alt="" className='w-24 rounded-full' />
-                    <ul className='flex gap-8 items-center'>
+                    <button className='md:hidden' onClick={() => setOpen(!open)}>
+                        <i className='ri-menu-3-fill text-3xl'></i>
+                    </button>
+                    <ul className='md:flex gap-8 items-center hidden'>
                         {
                             menus.map((item, index) => (
                                 <li key={index}>
@@ -40,11 +50,11 @@ const MainLayout = ({ children }) => {
             </nav>
             <div>{children}</div>
             <footer className='bg-slate-500 p-8'>
-                <div className='w-10/12 mx-auto grid grid-cols-4 gap-4'>
+                <div className='w-10/12 mx-auto grid md:grid-cols-4 md:gap-0 gap-8'>
 
-                    <div>
+                    <div className='md:text-left text-center'>
                         <h1 className=' text-slate-200 text-2xl font-semibold mb-3'>Website Links</h1>
-                        <ul className='space-y-3 text-gray-300'>
+                        <ul className='space-y-3 text-gray-300 md:m-0 mx-auto'>
                             {
                                 menus.map((item, index) => (
                                     <li key={index}>
@@ -60,7 +70,7 @@ const MainLayout = ({ children }) => {
                             </li>
                         </ul>
                     </div>
-                    <div>
+                    <div className='md:text-left text-center'>
                         <h1 className=' text-slate-200 text-2xl font-semibold mb-3'>Follow Us</h1>
                         <ul className='space-y-2 text-slate-200'>
                             <li><Link to='/'>Facebook</Link></li>
@@ -70,12 +80,12 @@ const MainLayout = ({ children }) => {
                             <li><Link to='/'>Youtube    </Link></li>
                         </ul>
                     </div>
-                    <div>
+                    <div className='md:text-left text-center'>
                         <h1 className=' text-slate-200 text-2xl font-semibold mb-3'>Brands Details</h1>
                         <img src="/images/shopCode.png" alt="" className='w-[200px] mb-2' />
                         <p className='text-slate-200'>Where Style Meets Technology</p>
                     </div>
-                    <div>
+                    <div className='md:text-left text-center'>
                         <h1 className=' text-slate-200 text-2xl font-semibold mb-3'>Contact Us</h1>
                         <form className='space-y-4'>
                             <input type="text" name='fullname' className='bg-white w-full rounded p-3' placeholder='Your Name' required autoComplete='off' />
@@ -88,6 +98,21 @@ const MainLayout = ({ children }) => {
 
                 </div>
             </footer>
+            <aside
+                className='bg-gray-900/80 shadow-lg fixed top-0 left-0 h-full md:hidden z-50 overflow-hidden'
+                style={{
+                    width: (open ? 250 : 0),
+                    transition: '.3s'
+                }}
+            >
+                <div className='flex flex-col p-8 gap-6'>
+                    {
+                        menus.map((item, index) => (
+                            <button onClick={() => mobileLink(item.href)} key={index} className='text-white'>{item.label}</button>
+                        ))
+                    }
+                </div>
+            </aside>
         </div>
     )
 }

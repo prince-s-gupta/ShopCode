@@ -1,12 +1,7 @@
 import React, { useState } from 'react'
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import { Navigation, Pagination } from 'swiper/modules';
 import MainLayout from './MainLayout'
 
-const Home = () => {
+const Products = () => {
     const [products, setProducts] = useState([
         {
             title: 'Cotton Plaid Shirt',
@@ -80,34 +75,9 @@ const Home = () => {
     return (
         <MainLayout>
             <div>
-                <header>
-                    <Swiper
-                        slidesPerView={1}
-                        navigation={true}
-                        pagination={true}
-                        modules={[Navigation, Pagination]}
-                        className='mySwiper'
-                    >
-                        <SwiperSlide>
-                            <img src="/images/p1.jpg" alt="" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src="/images/p2.jpg" alt="" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src="/images/p3.jpg" alt="" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src="/images/p4.jpg" alt="" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src="/images/p5.jpg" alt="" />
-                        </SwiperSlide>
-                    </Swiper>
-                </header>
                 <div className='md:p-16 p-8'>
-                    <h1 className='text-3xl font-bold text-center mb-2'>Latest Products</h1>
-                    <p className='text-center text-gray-600 mb-10'>Explore our freshest arrivals – discover what's new today!</p>
+                    <h1 className='text-3xl font-bold text-center mb-2'>All Products</h1>
+                    <p className='text-center text-gray-600 mb-10'>Discover our exclusive collection of men's shirts, featuring everything from classic plaids and versatile denim to luxurious silk blends and vibrant Hawaiian prints.</p>
                     <div className='md:w-10/12 mx-auto grid md:grid-cols-4 gap-8'>
                         {
                             products.map((item, index) => (
@@ -122,7 +92,7 @@ const Home = () => {
                                         </div>
                                         <button className='bg-blue-600 py-2 w-full rounded text-white font-semibold mt-2'>Buy Now</button>
                                         <button className='bg-rose-500 py-2 w-full rounded text-white font-semibold mt-2'>
-                                           <i className='ri-shopping-cart-line mr-2'></i> Add To Cart
+                                            <i className='ri-shopping-cart-line mr-2'></i> Add To Cart
                                         </button>
                                     </div>
                                 </div>
@@ -136,4 +106,4 @@ const Home = () => {
     )
 }
 
-export default Home
+export default Products

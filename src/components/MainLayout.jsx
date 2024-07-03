@@ -82,7 +82,7 @@ const MainLayout = ({ children }) => {
                     </div>
                     <div className='md:text-left text-center'>
                         <h1 className=' text-slate-200 text-2xl font-semibold mb-3'>Brands Details</h1>
-                        <img src="/images/shopCode.png" alt="" className='w-[200px] mb-2' />
+                        <img src="/images/shopCode.png" alt="" className='w-[200px] mb-2 mx-auto md:mx-0' />
                         <p className='text-slate-200'>Where Style Meets Technology</p>
                     </div>
                     <div className='md:text-left text-center'>
@@ -108,9 +108,13 @@ const MainLayout = ({ children }) => {
                 <div className='flex flex-col p-8 gap-6'>
                     {
                         menus.map((item, index) => (
-                            <button onClick={() => mobileLink(item.href)} key={index} className='text-white'>{item.label}</button>
+                            <div>
+                                <button onClick={() => mobileLink(item.href)} key={index} className='text-white'>{item.label}</button>
+                            </div>
                         ))
                     }
+                    <button className='text-white text-left bg-red-500 w-fit px-5 py-2 rounded'><Link to="/login">Login</Link></button>
+                    <button className='text-white text-left  bg-blue-500 w-fit px-5 py-2 rounded'><Link to="/signup">Sign Up</Link></button>
                 </div>
             </aside>
         </div>

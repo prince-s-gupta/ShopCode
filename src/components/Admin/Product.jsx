@@ -98,7 +98,7 @@ const Product = () => {
                                     <div className='flex gap-2 mt-1'>
                                         <label>₹{Math.floor(product.price - (product.price * product.discount) / 100)}</label>
                                         <del className='font-semibold'>₹{product.price}</del>
-                                        <label className='text-gray-600'>{product.discount}(% off)</label>
+                                        <label className='text-gray-600'>({product.discount}% off)</label>
                                     </div>
                                 </div>
                             </div>

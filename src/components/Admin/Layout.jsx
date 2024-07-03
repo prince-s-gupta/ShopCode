@@ -128,21 +128,21 @@ const Layout = ({ children }) => {
 
             <div className='md:hidden block'>
                 <aside
-                    className='bg-violet-600 fixed top-0 left-0 h-full z-50 overflow-hidden'
+                    className='bg-violet-600/90 fixed top-0 left-0 h-full z-50 overflow-hidden'
                     style={{
                         width: mobileSize,
                         transition: '0.3s'
                     }}
                 >
 
-                    <div className='mt-2 flex justify-between p-2 items-center'>
+                    <div className='mt-2 flex justify-between p-4 items-center'>
                         <h1 className='text-center text-white text-xl font-serif underline underline-offset-2'>SHOP CODE</h1>
                         <button className=''
                             onClick={() => setMobileSize(mobileSize === 280 ? 0 : 280)}>
                             <i className="ri-close-circle-line text-white text-xl"></i>
                         </button>
                     </div>
-                    <div className='flex flex-col mt-2 gap-2'>
+                    <div className='flex flex-col mt-2 gap-2 p-2'>
                         {
                             menus.map((item, index) => (
                                 <Link

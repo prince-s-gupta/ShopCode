@@ -1,9 +1,28 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth'
+import firebaseAppConfig from '../utils/firebase-config'
+
+const auth = getAuth(firebaseAppConfig)
 
 const MainLayout = ({ children }) => {
     const [open, setOpen] = useState(false)
+    const [accountMenu, setAccountMenu] = useState(false)
+    const [session, setSession] = useState(null)
     const navigate = useNavigate()
+
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setSession(user)
+            }
+            else {
+                setSession(false)
+            }
+        })
+
+    }, [])
+
     const menus = [
         {
             label: "Home",
@@ -27,9 +46,24 @@ const MainLayout = ({ children }) => {
         navigate(href)
         setOpen(false)
     }
+
+    if (session === null) {
+
+        return (
+            <div className='bg-gray-100 h-full fixed top-0 left-0 w-full flex justify-center items-center'>
+                <span className="relative flex h-4 w-4">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-4 w-4 bg-sky-500"></span>
+                </span>
+            </div>
+        )
+    }
+
+
     return (
         <div>
-            <nav className='shadow-lg bg-white sticky top-0 left-0 p-4 md:p-0'>
+            {/* //desktop */}
+            <nav className='md:block hidden shadow-lg bg-white sticky top-0 left-0 p-4 md:p-0'>
                 <div className='w-10/12 mx-auto flex items-center justify-between'>
                     <img src="/images/shopCode.png" alt="" className='w-24 rounded-full' />
                     <button className='md:hidden' onClick={() => setOpen(!open)}>
@@ -43,9 +77,77 @@ const MainLayout = ({ children }) => {
                                 </li>
                             ))
                         }
-                        <Link to="/login" className=' block py-6 hover:font-bold'>Login</Link>
-                        <Link to="/signup" className=' bg-blue-500 text-white block py-2 px-6 text-md rounded font-semibold  hover:bg-blue-600'>Signup</Link>
+                        {!session &&
+                            <>
+                                <Link to="/login" className=' block py-6 hover:font-bold'>Login</Link>
+                                <Link to="/signup" className=' bg-blue-500 text-white block py-2 px-6 text-md rounded font-semibold  hover:bg-blue-600'>Signup</Link>
+                            </>
+                        }
+
+                        {
+                            session &&
+                            <>
+                                <button className='relative' onClick={() => setAccountMenu(!accountMenu)}>
+                                    <img src="/images/avt.avif" alt="" className='w-10 h-10 rounded-full' />
+                                    {
+                                        accountMenu &&
+                                        <div className='animate__animated animate__fadeIn flex flex-col items-start  w-[150px] py-4 bg-white shadow-xl absolute top-12 right-0'>
+                                            <Link to="/profile" className='w-full p-2 hover:bg-gray-100 text-left'>
+                                                <i className='ri-user-line mr-2'></i>
+                                                My Profile
+                                            </Link>
+                                            <Link to="/cart" className='w-full p-2 hover:bg-gray-100 text-left'>
+                                                <i className='ri-shopping-cart-line mr-2'></i>
+                                                Cart
+                                            </Link>
+                                            <button className='w-full p-2 hover:bg-gray-100 text-left' onClick={() => signOut(auth)}>
+                                                <i className='ri-logout-circle-line mr-2'></i>
+                                                Logout
+                                            </button>
+                                        </div>
+                                    }
+                                </button>
+                            </>
+                        }
                     </ul>
+                </div>
+            </nav>
+            {/* //mobile  */}
+            <nav className='md:hidden block shadow-lg bg-white sticky top-0 left-0 p-4 md:p-0'>
+                <div className='w-10/12 mx-auto flex items-center justify-between'>
+                    <img src="/images/shopCode.png" alt="" className='w-24 rounded-full' />
+                    <div className='flex  items-center'>
+                        {
+                            session &&
+                            <>
+                                <button className='relative' onClick={() => setAccountMenu(!accountMenu)}>
+                                    <img src="/images/avt.avif" alt="" className='w-10 h-10 rounded-full' />
+                                    {
+                                        accountMenu &&
+                                        <div className='animate__animated mr-5 animate__fadeIn flex flex-col items-start  w-[150px] py-4 bg-white shadow-xl absolute top-12 -right-8'>
+                                            <Link to="/profile" className='w-full p-2 hover:bg-gray-100 text-left'>
+                                                <i className='ri-user-line mr-2'></i>
+                                                My Profile
+                                            </Link>
+                                            <Link to="/cart" className='w-full p-2 hover:bg-gray-100 text-left'>
+                                                <i className='ri-shopping-cart-line mr-2'></i>
+                                                Cart
+                                            </Link>
+                                            <button className='w-full p-2 hover:bg-gray-100 text-left' onClick={() => signOut(auth)}>
+                                                <i className='ri-logout-circle-line mr-2'></i>
+                                                Logout
+                                            </button>
+                                        </div>
+                                    }
+                                </button>
+                            </>
+                        }
+                        <button className='md:hidden ml-10' onClick={() => setOpen(!open)}>
+                            <i className='ri-menu-3-fill text-3xl'></i>
+                        </button>
+                    </div>
+
+
                 </div>
             </nav>
             <div>{children}</div>
@@ -108,13 +210,16 @@ const MainLayout = ({ children }) => {
                 <div className='flex flex-col p-8 gap-6'>
                     {
                         menus.map((item, index) => (
-                            <div>
-                                <button onClick={() => mobileLink(item.href)} key={index} className='text-white'>{item.label}</button>
-                            </div>
+                            <button onClick={() => mobileLink(item.href)} key={index} className='text-white'>{item.label}</button>
                         ))
                     }
-                    <button className='text-white text-left bg-red-500 w-fit px-5 py-2 rounded'><Link to="/login">Login</Link></button>
-                    <button className='text-white text-left  bg-blue-500 w-fit px-5 py-2 rounded'><Link to="/signup">Sign Up</Link></button>
+                    {
+                        !session &&
+                        <>
+                            <button className='text-white text-left mx-auto md:mx-0 bg-red-500 w-fit px-5 py-2 rounded'><Link to="/login">Login</Link></button>
+                            <button className='text-white text-left mx-auto md:mx-0  bg-blue-500 w-fit px-5 py-2 rounded'><Link to="/signup">Sign Up</Link></button>
+                        </>
+                    }
                 </div>
             </aside>
         </div>

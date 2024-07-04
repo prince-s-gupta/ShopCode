@@ -86,7 +86,7 @@ const Home = () => {
                         navigation={true}
                         pagination={true}
                         modules={[Navigation, Pagination]}
-                        className='mySwiper'
+                        className='mySwiper -z-10'
                     >
                         <SwiperSlide>
                             <img src="/images/p1.jpg" alt="" />

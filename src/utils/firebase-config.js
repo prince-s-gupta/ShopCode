@@ -1,13 +1,14 @@
-import { initializeApp } from "firebase/app";
 
+import { initializeApp } from "firebase/app";
 const firebaseConfig = {
-    apiKey: "AIzaSyAlPkBo0A0bebe18dkd6UtDYsk9JDAEzGw",
-    authDomain: "shopcode-f2746.firebaseapp.com",
-    projectId: "shopcode-f2746",
-    storageBucket: "shopcode-f2746.appspot.com",
-    messagingSenderId: "924111408121",
-    appId: "1:924111408121:web:033d909f37043788e70b28",
-    measurementId: "G-GVE8NH40NH"
+    apiKey: "AIzaSyAiolPHpmLrshIwnFsyKcPoneoKhAe6Dak",
+    authDomain: "shopcode-3e231.firebaseapp.com",
+    projectId: "shopcode-3e231",
+    storageBucket: "shopcode-3e231.appspot.com",
+    messagingSenderId: "495922626129",
+    appId: "1:495922626129:web:dd6a44c3a90970aac84270",
+    measurementId: "G-4R8D4QH04H"
 };
+
 const firebaseAppConfig = initializeApp(firebaseConfig);
 export default firebaseAppConfig

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import firebaseAppConfig from '../utils/firebase-config'
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 
 
 const auth = getAuth(firebaseAppConfig)
@@ -18,6 +18,7 @@ const Signup = () => {
         try {
             setLoader(true)
             await createUserWithEmailAndPassword(auth, data.email, data.password)
+            await updateProfile(auth.currentUser, { displayName: data.fullname })
             navigate("/")
         } catch (error) {
             setCustomError("Something Went Wrong! Please Try Agaim")
@@ -90,7 +91,7 @@ const Signup = () => {
                         className={`py-3 px-5 bg-blue-600 hover:bg-rose-600 text-white font-semibold rounded-sm flex items-center justify-center ${loader ? 'opacity-50 cursor-not-allowed' : ''}`}
                         disabled={loader}
                     >
-                       {loader && <svg className="animate-spin h-5 w-5 mr-3 border-t-2 border-b-2 border-white rounded-full" viewBox="0 0 24 24"></svg>}
+                        {loader && <svg className="animate-spin h-5 w-5 mr-3 border-t-2 border-b-2 border-white rounded-full" viewBox="0 0 24 24"></svg>}
                         Signup
                     </button>
                 </form>

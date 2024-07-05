@@ -122,7 +122,7 @@ const Home = () => {
                                         </div>
                                         <button className='bg-blue-600 py-2 w-full rounded text-white font-semibold mt-2'>Buy Now</button>
                                         <button className='bg-rose-500 py-2 w-full rounded text-white font-semibold mt-2'>
-                                           <i className='ri-shopping-cart-line mr-2'></i> Add To Cart
+                                            <i className='ri-shopping-cart-line mr-2'></i> Add To Cart
                                         </button>
                                     </div>
                                 </div>

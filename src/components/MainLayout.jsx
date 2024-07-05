@@ -63,7 +63,7 @@ const MainLayout = ({ children }) => {
     return (
         <div>
             {/* //desktop */}
-            <nav className='md:block hidden shadow-lg bg-white sticky top-0 left-0 p-4 md:p-0'>
+            <nav className='md:block hidden shadow-lg bg-white sticky top-0 left-0 p-4 md:p-0 z-50'>
                 <div className='w-10/12 mx-auto flex items-center justify-between'>
                     <img src="/images/shopCode.png" alt="" className='w-24 rounded-full' />
                     <button className='md:hidden' onClick={() => setOpen(!open)}>
@@ -88,10 +88,11 @@ const MainLayout = ({ children }) => {
                             session &&
                             <>
                                 <button className='relative' onClick={() => setAccountMenu(!accountMenu)}>
-                                    <img src="/images/avt.avif" alt="" className='w-10 h-10 rounded-full' />
+                                    <img src={session.photoURL ? session.photoURL : "/images/avt.avif"} alt="" className='w-10 h-10 rounded-full' />
                                     {
                                         accountMenu &&
                                         <div className='animate__animated animate__fadeIn flex flex-col items-start  w-[150px] py-4 bg-white shadow-xl absolute top-12 right-0'>
+                                            <h1 className='w-full font-semibold mb-3 cursor-auto'> Hi {session.displayName}!</h1>
                                             <Link to="/profile" className='w-full p-2 hover:bg-gray-100 text-left'>
                                                 <i className='ri-user-line mr-2'></i>
                                                 My Profile
@@ -113,7 +114,7 @@ const MainLayout = ({ children }) => {
                 </div>
             </nav>
             {/* //mobile  */}
-            <nav className='md:hidden block shadow-lg bg-white sticky top-0 left-0 p-4 md:p-0'>
+            <nav className='md:hidden block shadow-lg bg-white sticky top-0 left-0 p-4 md:p-0 z-50'>
                 <div className='w-10/12 mx-auto flex items-center justify-between'>
                     <img src="/images/shopCode.png" alt="" className='w-24 rounded-full' />
                     <div className='flex  items-center'>
@@ -121,10 +122,11 @@ const MainLayout = ({ children }) => {
                             session &&
                             <>
                                 <button className='relative' onClick={() => setAccountMenu(!accountMenu)}>
-                                    <img src="/images/avt.avif" alt="" className='w-10 h-10 rounded-full' />
+                                    <img src={session.photoURL ? session.photoURL : "/images/avt.avif"} alt="" className='w-10 h-10 rounded-full' />
                                     {
                                         accountMenu &&
-                                        <div className='animate__animated mr-5 animate__fadeIn flex flex-col items-start  w-[150px] py-4 bg-white shadow-xl absolute top-12 -right-8'>
+                                        <div className='animate__animated mr-5 animate__fadeIn flex flex-col items-start w-[150px] py-4 bg-white shadow-xl absolute top-12 -right-8'>
+                                            <h1 className='w-full font-semibold mb-3 cursor-auto'> Hi {session.displayName}!</h1>
                                             <Link to="/profile" className='w-full p-2 hover:bg-gray-100 text-left'>
                                                 <i className='ri-user-line mr-2'></i>
                                                 My Profile
@@ -150,6 +152,7 @@ const MainLayout = ({ children }) => {
 
                 </div>
             </nav>
+
             <div>{children}</div>
             <footer className='bg-slate-500 p-8'>
                 <div className='w-10/12 mx-auto grid md:grid-cols-4 md:gap-0 gap-8'>

@@ -48,7 +48,7 @@ const Orders = () => {
                             {
                                 orders.map((item, index) => (
                                     <tr
-                                        className='text-center'
+                                        className='text-center border-b border-gray-400'
                                         key={index}
                                         style={{
                                             background: (index + 1) % 2 === 0 ? '#e2e8f0' : 'white'

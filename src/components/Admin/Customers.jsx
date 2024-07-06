@@ -33,6 +33,7 @@ const Customers = () => {
                                 customers.map((item, index) => (
                                     <tr
                                         key={index}
+                                        className='border-b border-gray-400'
                                         style={{
                                             background: (index + 1) % 2 === 0 ? '#e2e8f0' : 'white'
                                         }}

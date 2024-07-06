@@ -47,6 +47,11 @@ const MainLayout = ({ children }) => {
         setOpen(false)
     }
 
+    const handleLogout = () => {
+        signOut(auth)
+        navigate("/")
+    }
+
     if (session === null) {
 
         return (
@@ -135,7 +140,7 @@ const MainLayout = ({ children }) => {
                                                 <i className='ri-shopping-cart-line mr-2'></i>
                                                 Cart
                                             </Link>
-                                            <button className='w-full p-2 hover:bg-gray-100 text-left' onClick={() => signOut(auth)}>
+                                            <button className='w-full p-2 hover:bg-gray-100 text-left' onClick={handleLogout}>
                                                 <i className='ri-logout-circle-line mr-2'></i>
                                                 Logout
                                             </button>
